@@ -20,9 +20,10 @@ const handleResponse = (req: Request, res: Response) => {
 };
 
 apiRouter.get(
-  "/:prop",
+  "/prop/:prop",
   async (req: Request, res: Response, next: express.NextFunction) => {
     const prop = req.params.prop;
+
     try {
       const { status, data } = await getProp(prop as PropsOpc);
       res.locals.status = status;
@@ -41,7 +42,7 @@ apiRouter.get(
 );
 
 apiRouter.post(
-  "/:prop",
+  "/prop/:prop",
   async (req: Request, res: Response, next: express.NextFunction) => {
     const prop = req.params.prop;
     const { nome, descricao } = req.body;
