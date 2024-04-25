@@ -12,10 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "i": "^0.3.7",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.7",
+    "npm": "^10.5.2"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
+    "@types/mysql": "^2.15.26",
     "@types/node": "^20.12.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
