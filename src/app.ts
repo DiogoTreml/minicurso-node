@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import * as dotenv from "dotenv";
-import { personagemProp, PropsOpc } from "./controllers/propsController";
+import { getProp, postProp, PropsOpc } from "./controllers/propsController";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ apiRouter.get(
   async (req: Request, res: Response, next: express.NextFunction) => {
     const prop = req.params.prop;
     try {
-      const { status, data } = await personagemProp.get(prop as PropsOpc);
+      const { status, data } = await getProp(prop as PropsOpc);
       res.locals.status = status;
       res.locals.data = data;
       next();
@@ -46,7 +46,7 @@ apiRouter.post(
     const prop = req.params.prop;
     const { nome, descricao } = req.body;
     try {
-      const { status, data } = await personagemProp.post(prop as PropsOpc, {
+      const { status, data } = await postProp(prop as PropsOpc, {
         nome,
         descricao,
       });
