@@ -30,7 +30,7 @@ Antes de começar, você precisa ter o Node.js instalado em sua máquina. Se nã
 
 1. Na raiz do projeto, crie um arquivo chamado `.env`.
 
-2. Abra o arquivo `.env` e adicione as seguintes variáveis, substituindo os valores de exemplo pelos reais conforme necessário:
+2. Abra o arquivo `.env` e adicione as seguintes variáveis, substituindo os valores de exemplo pelos reais:
 
    ```plaintext
    DB_HOST=localhost       # Endereço do servidor do banco de dados
