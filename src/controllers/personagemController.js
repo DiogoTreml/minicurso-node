@@ -190,7 +190,7 @@ export async function putPersonagem({ id, nome, classe, raca, habilidades }) {
   }
 }
 
-export async function deletePersonagem({ id }) {
+export async function deletePersonagem(id) {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -200,12 +200,12 @@ export async function deletePersonagem({ id }) {
       [id]
     );
 
-    const { affectedRows } = await connection.query(
+    const query = await connection.query(
       `DELETE FROM personagens WHERE id = ?`,
       [id]
     );
 
-    if (affectedRows === 0) {
+    if (query[0].affectedRows === 0) {
       await connection.rollback();
       return { status: 404, data: { message: "Personagem não encontrado." } };
     }

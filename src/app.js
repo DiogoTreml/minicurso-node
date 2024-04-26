@@ -1,5 +1,4 @@
 import express from "express";
-import * as dotenv from "dotenv";
 import {
   deleteProp,
   getProp,
@@ -8,6 +7,7 @@ import {
 } from "./controllers/propsController.js";
 import { validateProp } from "./util.js";
 import {
+  deletePersonagem,
   getPersonagemById,
   getPersonagens,
   postPersonagem,
@@ -43,7 +43,6 @@ apiRouter.get(
       res.locals.data = data;
       next();
     } catch (error) {
-      console.error(`Erro ao acessar ${prop}:`, error);
       res.locals.status = 500;
       res.locals.data = {
         message: `Erro ao processar a requisição para ${prop}`,
@@ -143,10 +142,18 @@ apiRouter.put("/personagem", async (req, res) => {
   res.status(status).json(data);
 });
 
+apiRouter.delete("/personagem", async (req, res) => {
+  const { id } = req.body;
+
+  const { status, data } = await deletePersonagem(id);
+
+  res.status(status).json(data);
+});
+
 app.use("/api", apiRouter);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
 
-export default app;
+//export default app;
