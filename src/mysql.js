@@ -1,10 +1,9 @@
-import { createPool, Pool } from "mysql2/promise";
+import { createPool } from "mysql2/promise";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-// Configuração da conexão com o banco de dados utilizando variáveis de ambiente
-const pool: Pool = createPool({
+export const pool = createPool({
   connectionLimit: 10,
   host: process.env.DATABASE_URL,
   user: process.env.DATABASE_USER,
@@ -12,11 +11,11 @@ const pool: Pool = createPool({
   database: process.env.DATABASE,
 });
 
-export async function executeQuery(sql: string): Promise<any[]> {
+export async function executeQuery(sql) {
   const connection = await pool.getConnection();
   try {
     const [results] = await connection.query(sql);
-    return results as any[];
+    return results;
   } catch (error) {
     throw error;
   } finally {
