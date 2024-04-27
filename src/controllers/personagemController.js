@@ -1,6 +1,5 @@
 import * as mysql from "mysql2";
 import { executeQuery, pool } from "../mysql.js";
-import { statusErro } from "../util.js";
 
 export async function getPersonagens() {
   try {
@@ -10,8 +9,8 @@ export async function getPersonagens() {
       status: data.length > 0 ? 200 : 204,
       data: data,
     };
-  } catch (err) {
-    return statusErro;
+  } catch (error) {
+    return { status: 500, data: { message: error.message } };
   }
 }
 
@@ -63,12 +62,8 @@ export async function getPersonagemById(id) {
       status: 200,
       data: dataRes,
     };
-  } catch (err) {
-    console.error(err);
-    return {
-      status: 500,
-      data: { message: "Erro ao processar a requisição" },
-    };
+  } catch (error) {
+    return { status: 500, data: { message: error.message } };
   }
 }
 
@@ -184,7 +179,7 @@ export async function putPersonagem({ id, nome, classe, raca, habilidades }) {
     return { status: 200, data: { message: "Registro atualizado." } };
   } catch (error) {
     await connection.rollback();
-    return { status: 500, data: { message: "Erro desconhecido" } };
+    return { status: 500, data: { message: error.message } };
   } finally {
     connection.release();
   }
@@ -217,7 +212,7 @@ export async function deletePersonagem(id) {
     };
   } catch (error) {
     await connection.rollback();
-    return { status: 500, data: { message: "Erro ao excluir personagem:" } };
+    return { status: 500, data: { message: error.message } };
   } finally {
     connection.release();
   }

@@ -16,8 +16,3 @@ export const handleResponse = (_, res) => {
     res.status(500).json({ message: "Erro interno do servidor" });
   }
 };
-
-export const statusErro = {
-  status: 500,
-  data: { message: "Erro desconhecido" },
-};
