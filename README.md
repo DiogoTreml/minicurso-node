@@ -2,6 +2,8 @@
 
 Este repositório contém o código-fonte para o workshop de Node.js.
 
+- [Apresentação](https://docs.google.com/presentation/d/1IbRHfawRgoGAkAzz66M0cPR0y_c_zZfe8HsspW13KBM/edit?usp=sharing)
+
 ## Pré-requisitos
 
 Antes de começar, você precisa ter o Node.js instalado em sua máquina. Se não tiver, você pode instalá-lo:
