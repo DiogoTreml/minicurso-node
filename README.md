@@ -35,9 +35,10 @@ Antes de começar, você precisa ter o Node.js instalado em sua máquina. Se nã
 2. Abra o arquivo `.env` e adicione as seguintes variáveis, substituindo os valores de exemplo pelos reais:
 
    ```plaintext
-   DB_URL=minicurso-node.clm84ywsurfy.us-east-2.rds.amazonaws.com
-   DB_USER=admin
-   DB_PASS=zDa8CegBLrrLSum
+   DB_URL=10.70.64.54
+   DB_PORT=3306
+   DB_USER=root
+   DB_PASS=udesc
    DATABASE=dnd
    
 
