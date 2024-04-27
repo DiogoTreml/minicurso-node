@@ -37,7 +37,6 @@ Antes de começar, você precisa ter o Node.js instalado em sua máquina. Se nã
    ```plaintext
    DB_URL=minicurso-node.clm84ywsurfy.us-east-2.rds.amazonaws.com
    DB_USER=admin
-   DB_PORT=3306
    DB_PASS=---------
    DATABASE=dnd
    
