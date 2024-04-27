@@ -5,7 +5,7 @@ import {
   postProp,
   putProp,
 } from "./controllers/propsController.js";
-import { validateProp } from "./util.js";
+import { validateProp, handleResponse } from "./util.js";
 import {
   deletePersonagem,
   getPersonagemById,
@@ -21,14 +21,6 @@ app.use(express.json());
 
 const apiRouter = express.Router();
 
-const handleResponse = (_, res) => {
-  if (res.locals.status && res.locals.data) {
-    res.status(res.locals.status).json(res.locals.data);
-  } else {
-    res.status(500).json({ message: "Erro interno do servidor" });
-  }
-};
-
 //--------------------------------------------------------
 
 apiRouter.get(
@@ -37,18 +29,10 @@ apiRouter.get(
   async (req, res, next) => {
     const prop = req.params.prop;
 
-    try {
-      const { status, data } = await getProp(prop);
-      res.locals.status = status;
-      res.locals.data = data;
-      next();
-    } catch (error) {
-      res.locals.status = 500;
-      res.locals.data = {
-        message: `Erro ao processar a requisição para ${prop}`,
-      };
-      next();
-    }
+    const { status, data } = await getProp(prop);
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
   },
   handleResponse
 );
@@ -60,100 +44,136 @@ apiRouter.post(
     const prop = req.params.prop;
     const { nome, descricao } = req.body;
 
-    try {
-      const { status, data } = await postProp(prop, {
-        nome,
-        descricao,
-      });
-      res.locals.status = status;
-      res.locals.data = data;
-      next();
-    } catch (error) {
-      console.error(`Erro ao inserir em ${prop}:`, error);
-      res.locals.status = 500;
-      res.locals.data = { message: `Erro ao inserir dados em ${prop}` };
-      next();
-    }
+    const { status, data } = await postProp(prop, {
+      nome,
+      descricao,
+    });
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
   },
   handleResponse
 );
 
-apiRouter.put("/prop/:prop/", validateProp, async (req, res) => {
-  const { prop } = req.params;
-  const { id, nome, descricao } = req.body;
+apiRouter.put(
+  "/prop/:prop/",
+  validateProp,
+  async (req, res, next) => {
+    const { prop } = req.params;
+    const { id, nome, descricao } = req.body;
 
-  const { status, data } = await putProp(prop, {
-    nome,
-    descricao,
-    id,
-  });
-  res.status(status).json(data);
-});
+    const { status, data } = await putProp(prop, {
+      nome,
+      descricao,
+      id,
+    });
 
-apiRouter.delete("/prop/:prop", validateProp, async (req, res) => {
-  const { prop } = req.params;
-  const { id } = req.body;
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
-  const { status, data } = await deleteProp(prop, id);
+apiRouter.delete(
+  "/prop/:prop",
+  validateProp,
+  async (req, res, next) => {
+    const { prop } = req.params;
+    const { id } = req.body;
 
-  res.status(status).json(data);
-});
+    const { status, data } = await deleteProp(prop, id);
+
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
 //----------------------------------------------------------
 
-apiRouter.get("/personagem", async (_, res) => {
-  const { status, data } = await getPersonagens();
+apiRouter.get(
+  "/personagem",
+  async (_, res, next) => {
+    const { status, data } = await getPersonagens();
 
-  res.status(status).json(data);
-});
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
-apiRouter.get("/personagem/:id", async (req, res) => {
-  const { id } = req.params;
+apiRouter.get(
+  "/personagem/:id",
+  async (req, res, next) => {
+    const { id } = req.params;
 
-  const { status, data } = await getPersonagemById(id);
+    const { status, data } = await getPersonagemById(id);
 
-  res.status(status).json(data);
-});
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
-apiRouter.post("/personagem", async (req, res) => {
-  const { nome, classe, raca, habilidades } = req.body;
+apiRouter.post(
+  "/personagem",
+  async (req, res, next) => {
+    const { nome, classe, raca, habilidades } = req.body;
 
-  const { status, data } = await postPersonagem({
-    nome,
-    classe,
-    raca,
-    habilidades,
-  });
+    const { status, data } = await postPersonagem({
+      nome,
+      classe,
+      raca,
+      habilidades,
+    });
 
-  res.status(status).json(data);
-});
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
-apiRouter.put("/personagem", async (req, res) => {
-  const { id, nome, classe, raca, habilidades } = req.body;
+apiRouter.put(
+  "/personagem",
+  async (req, res, next) => {
+    const { id, nome, classe, raca, habilidades } = req.body;
 
-  const { status, data } = await putPersonagem({
-    id,
-    nome,
-    classe,
-    raca,
-    habilidades,
-  });
+    const { status, data } = await putPersonagem({
+      id,
+      nome,
+      classe,
+      raca,
+      habilidades,
+    });
 
-  res.status(status).json(data);
-});
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
-apiRouter.delete("/personagem", async (req, res) => {
-  const { id } = req.body;
+apiRouter.delete(
+  "/personagem",
+  async (req, res, next) => {
+    const { id } = req.body;
 
-  const { status, data } = await deletePersonagem(id);
+    const { status, data } = await deletePersonagem(id);
 
-  res.status(status).json(data);
-});
+    res.locals.status = status;
+    res.locals.data = data;
+    next();
+  },
+  handleResponse
+);
 
 app.use("/api", apiRouter);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-//export default app;

@@ -9,6 +9,14 @@ export function validateProp(req, res, next) {
   }
 }
 
+export const handleResponse = (_, res) => {
+  if (res.locals.status && res.locals.data) {
+    res.status(res.locals.status).json(res.locals.data);
+  } else {
+    res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};
+
 export const statusErro = {
   status: 500,
   data: { message: "Erro desconhecido" },
