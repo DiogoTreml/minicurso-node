@@ -38,6 +38,7 @@ Antes de começar, você precisa ter o Node.js instalado em sua máquina. Se nã
    DB_PASS=sua_senha       # Senha do banco de dados
    DB_NAME=nome_do_banco   # Nome do banco de dados
 
-   
+## Postman
+- [Serviços no Postman](https://drive.google.com/file/d/1d1XioQIYoDhHATBIl9e2KbLISZf8qaJi/view?usp=sharing)
 
    
