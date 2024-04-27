@@ -1,6 +1,6 @@
 export function validateProp(req, res, next) {
   const { prop } = req.params;
-  const validProps = ["classe", "raca", "item", "habilidade"];
+  const validProps = ["classe", "raca", "habilidade"];
 
   if (!validProps.includes(prop)) {
     res.status(400).json({ message: "Propriedade inválida" });
