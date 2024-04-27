@@ -1,5 +1,5 @@
 export function validateProp(req, res, next) {
-  const prop = req.params.prop;
+  const { prop } = req.params;
   const validProps = ["classe", "raca", "item", "habilidade"];
 
   if (!validProps.includes(prop)) {
